@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.2.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <!-- 创建一个聚合项目，里面每个模块是一个独立的SpringBoot项目 -->
+    <modules>
+        <module>springcloud-chlid-node1</module>
+        <module>springcloud-chlid-node2</module>
+        <module>springcloud-chlid-ribbon</module>
+        <module>springcloud-chlid-dubbo</module>
+        <module>springcloud-chlid-gateway</module>
+    </modules>
+
+    <groupId>com.springcloud</groupId>
+    <artifactId>springcloud-parent-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springcloud-parent-example</name>
+    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
+
+    <properties>
+    </properties>
+
+    <!-- 依赖管理：继承一些默认的依赖，工程需要依赖的jar包的管理，申明其他dependency的时候就不需要version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.2.6.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

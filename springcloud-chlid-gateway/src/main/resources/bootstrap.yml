@@ -1,0 +1,36 @@
+server:
+  port: 9094
+spring:
+  application:
+    name: springcloud-child-gateway # 应用程序名称
+  cloud:
+    nacos:
+      # 注册中心
+      discovery:
+        server-addr: 127.0.0.1:8848 # 注册中心地址
+        namespace: 80d720e9-3330-447d-9ccb-cad17c5d61f4 # 命名空间ID
+        group: dev1 # 组名
+      # 配置中心
+      config:
+        server-addr: 127.0.0.1:8848 # 配置中心地址
+        namespace: 80d720e9-3330-447d-9ccb-cad17c5d61f4 # 命名空间ID
+        group: dev1 # 组名
+        file-extension: yml
+    # 服务容错
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080 # 服务容错地址
+    # 服务网关
+    gateway:
+      routes:
+        - id: ribbon
+          uri: http://127.0.0.1:9092/ # 被请求的ribbon服务地址
+          predicates:  # 路由断言，判断请求是否符合路由规则的条件
+            #- Query=url,ribbon # 请求链接中带有 url=ribbon 就请求上方的uri地址
+            - Path=/ribbon/** # 按照路径匹配，只要以/node开头就符合要求，就请求上方的uri地址
+
+        - id: node
+          uri: http://127.0.0.1:9090/ # 被请求的node服务地址
+          predicates:  # 路由断言，判断请求是否符合路由规则的条件
+            #- Query=url,node # 请求链接中带有 url=node 就请求上方的uri地址
+            - Path=/node/** # 按照路径匹配，只要以/node开头就符合要求，就请求上方的uri地址
